@@ -74,7 +74,14 @@ const CustomerDetails = ({ customer, onEdit, onDelete }: CustomerDetailsProps) =
                         </Button>
                     )}
                     {onDelete && (
-                        <Popconfirm title="Are you sure you want to delete this customer?" onConfirm={onDelete} onCancel={() => {}} okText="Delete" cancelText="Cancel">
+                        <Popconfirm title="Are you sure you want to delete this customer?" 
+                            onConfirm={onDelete} 
+                            onCancel={() => {}} 
+                            okText="Delete" 
+                            cancelText="Cancel" 
+                            okButtonProps={{ "data-testid": "delete-customer-confirm-button"}}
+                            cancelButtonProps={{ "data-testid": "delete-customer-cancel-button"}}
+                            >
                             <Button
                             danger
                             className="flex items-center gap-2"
