@@ -1,8 +1,10 @@
 import api from "./api";
 import type { ICustomer } from "../types";
 
-export const getCustomers = async (): Promise<ICustomer[]> => {
-  const response = await api.get("/customer");
+export const getCustomers = async (
+  searchValue: string
+): Promise<ICustomer[]> => {
+  const response = await api.get(`/customer?search=${searchValue}`);
   return response.data;
 };
 
