@@ -6,6 +6,7 @@ import Loading from "../../components/Loading";
 import SearchBar from "../../components/SearchBar";
 import { useState } from "react";
 import type { ICustomer } from "../../types";
+import NoRecords from "../../components/NoRecords";
 
 const Home = () => {
     const [searchValue, setSearchValue] = useState("");
@@ -18,12 +19,19 @@ const Home = () => {
         setSearchValue(value);
     };
 
+    const handleChange = (value: string) => {
+        setSearchValue(value);
+    };
+
     return (
         <div>
             <div className="flex justify-end mb-4">
-                <SearchBar onSearch={handleSearch} size="large" />
+                <SearchBar onSearch={handleSearch} onChange={handleChange} size="large" />
             </div>
-            {isLoading ? <Loading /> : <CustomerCardContainer customers={customers} />}
+            {isLoading ? <Loading /> : 
+            customers && customers.length > 0 ? 
+            <CustomerCardContainer customers={customers} /> : 
+            <NoRecords message="No records found" description="Please try again with a different search." />}
         </div>
     );
 };
