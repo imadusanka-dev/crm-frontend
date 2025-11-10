@@ -1,5 +1,6 @@
 import { Routes, Route } from 'react-router-dom'
 import Home from './pages/Home'
+import ViewCustomer from './pages/ViewCustomer'
 
 function App() {
   return (
@@ -8,6 +9,12 @@ function App() {
         path="/" 
         element={
             <Home />
+        } 
+      />
+      <Route 
+        path="/customer/:id" 
+        element={
+            <ViewCustomer />
         } 
       />
     </Routes>
