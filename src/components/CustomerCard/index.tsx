@@ -10,7 +10,7 @@ interface CustomerCardProps {
 const CustomerCard = ({ firstName, lastName, email, id }: CustomerCardProps) => {
     return (
         <div className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow duration-200 relative">
-            <Link to={`/customer/${id}`}>
+            <Link data-testid={`view-customer-link-${id}`} to={`/customer/${id}`}>
                 <button
                     className="absolute top-4 right-4 text-gray-400 hover:text-blue-500 transition-colors duration-200 cursor-pointer"
                     aria-label="View more details"

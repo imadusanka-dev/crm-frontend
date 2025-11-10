@@ -114,10 +114,10 @@ const AddCustomerModal = ({ open, onCancel, onFinish, customer }: AddCustomerMod
 
                 <Form.Item>
                     <div className="flex justify-end gap-2">
-                        <Button onClick={handleCancel}>
+                        <Button data-testid="cancel-button" onClick={handleCancel}>
                             Cancel
                         </Button>
-                        <Button type="primary" htmlType="submit">
+                        <Button type="primary" htmlType="submit" data-testid="submit-button">
                             {customer ? "Save Changes" : "Add Customer"}    
                         </Button>
                     </div>

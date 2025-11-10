@@ -55,6 +55,7 @@ const CustomerDetails = ({ customer, onEdit, onDelete }: CustomerDetailsProps) =
                             type="primary"
                             onClick={onEdit}
                             className="flex items-center gap-2"
+                            data-testid="edit-customer-button"
                         >
                             <svg
                                 className="w-4 h-4"
@@ -77,6 +78,7 @@ const CustomerDetails = ({ customer, onEdit, onDelete }: CustomerDetailsProps) =
                             <Button
                             danger
                             className="flex items-center gap-2"
+                            data-testid="delete-customer-button"
                         >
                             <svg
                                 className="w-4 h-4"
