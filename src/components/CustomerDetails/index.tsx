@@ -1,4 +1,4 @@
-import { Button } from "antd";
+import { Button, Popconfirm } from "antd";
 import type { ICustomer } from "../../types";
 
 interface CustomerDetailsProps {
@@ -73,9 +73,9 @@ const CustomerDetails = ({ customer, onEdit, onDelete }: CustomerDetailsProps) =
                         </Button>
                     )}
                     {onDelete && (
-                        <Button
+                        <Popconfirm title="Are you sure you want to delete this customer?" onConfirm={onDelete} onCancel={() => {}} okText="Delete" cancelText="Cancel">
+                            <Button
                             danger
-                            onClick={onDelete}
                             className="flex items-center gap-2"
                         >
                             <svg
@@ -92,7 +92,8 @@ const CustomerDetails = ({ customer, onEdit, onDelete }: CustomerDetailsProps) =
                                 />
                             </svg>
                             Delete
-                        </Button>
+                            </Button>
+                        </Popconfirm>
                     )}
                 </div>
             </div>

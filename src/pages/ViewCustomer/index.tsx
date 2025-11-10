@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom";
-import { getCustomerById, updateCustomer } from "../../services/customer.service";
+import { getCustomerById, updateCustomer, deleteCustomer } from "../../services/customer.service";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import type { ICustomer } from "../../types";
 import Loading from "../../components/Loading";
@@ -38,12 +38,28 @@ const ViewCustomer = () => {
         }
     });
 
+    const { mutate: deleteCustomerMutation } = useMutation({
+        mutationFn: (id: string) => deleteCustomer(id),
+        onSuccess: () => {
+            messageApi.success("Customer deleted successfully");
+            queryClient.invalidateQueries({ queryKey: ["customer", id] });
+            navigate("/");
+        },
+        onError: (error: AxiosError) => {
+            messageApi.error((error.response?.data as { message: string })?.message || "Failed to delete customer");
+        }
+    });
+
     const handleEdit = () => {
         setOpenAddCustomerModal(true);
     };
 
     const handleEditCustomer = (values: Omit<ICustomer, 'id' | 'createdAt'>) => {
         updateCustomerMutation(values);
+    };
+
+    const handleDeleteCustomer = () => {
+        deleteCustomerMutation(id as string);
     };
 
     if (isLoading) return <Loading />;
@@ -53,7 +69,7 @@ const ViewCustomer = () => {
     return (
         <div>
             {contextHolder}
-            {customer && <CustomerDetails customer={customer} onEdit={handleEdit} />}
+            {customer && <CustomerDetails customer={customer} onEdit={handleEdit} onDelete={handleDeleteCustomer} />}
             <AddCustomerModal 
                 open={openAddCustomerModal} 
                 onCancel={() => setOpenAddCustomerModal(false)} 
