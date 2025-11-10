@@ -5,9 +5,10 @@ interface AddCustomerModalProps {
     open: boolean;
     onCancel: () => void;
     onFinish: (values: Omit<ICustomer, 'id' | 'createdAt'>) => void;
+    customer?: ICustomer;
 }
 
-const AddCustomerModal = ({ open, onCancel, onFinish }: AddCustomerModalProps) => {
+const AddCustomerModal = ({ open, onCancel, onFinish, customer }: AddCustomerModalProps) => {
     const [form] = Form.useForm();
 
     const handleCancel = () => {
@@ -23,7 +24,7 @@ const AddCustomerModal = ({ open, onCancel, onFinish }: AddCustomerModalProps) =
         <Modal
             open={open}
             onCancel={handleCancel}
-            title="Add New Customer"
+            title={customer ? "Edit Customer" : "Add New Customer"}
             footer={null}
             width={600}
         >
@@ -32,6 +33,7 @@ const AddCustomerModal = ({ open, onCancel, onFinish }: AddCustomerModalProps) =
                 layout="vertical"
                 onFinish={handleSubmit}
                 autoComplete="off"
+                initialValues={customer}
             >
                 <Form.Item
                     label="First Name"
@@ -116,7 +118,7 @@ const AddCustomerModal = ({ open, onCancel, onFinish }: AddCustomerModalProps) =
                             Cancel
                         </Button>
                         <Button type="primary" htmlType="submit">
-                            Add Customer
+                            {customer ? "Save Changes" : "Add Customer"}    
                         </Button>
                     </div>
                 </Form.Item>
