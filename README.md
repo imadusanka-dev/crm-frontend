@@ -1,73 +1,120 @@
-# React + TypeScript + Vite
+# CRM Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern Customer Relationship Management (CRM) application built with React, TypeScript, and Tailwind CSS.
 
-Currently, two official plugins are available:
+## Tech Stack
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **React 19** - UI library
+- **TypeScript** - Type safety
+- **Vite** - Build tool and dev server
+- **React Router DOM** - Routing
+- **React Query (TanStack Query)** - Data fetching and state management
+- **Ant Design** - UI component library
+- **Tailwind CSS** - Utility-first CSS framework
+- **Axios** - HTTP client
+- **Playwright** - End-to-end testing
 
-## React Compiler
+## Prerequisites
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- **Node.js** (v18 or higher)
+- **pnpm** (or npm/yarn)
+- **Backend API Server** - The application requires a running backend API
 
-## Expanding the ESLint configuration
+## Setup
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### 1. Clone the repository
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+git clone <repository-url>
+cd crm-frontend
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### 2. Install dependencies
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+```bash
+pnpm install
+```
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+### 3. Configure environment variables
+
+Create a `.env` file in the root directory with the following content:
+
+```env
+VITE_API_URL=http://localhost:3000/api
+```
+
+**Note:** Replace `http://localhost:3000/api` with your actual backend API URL.
+
+### 4. Start the backend API server
+
+Make sure your backend API server is running and accessible at the URL specified in `VITE_API_URL`.
+
+## Running the Application
+
+### Development Mode
+
+Start the development server:
+
+```bash
+pnpm run dev
+```
+
+The application will be available at `http://localhost:5173` (or the next available port).
+
+### Build for Production
+
+Build the application for production:
+
+```bash
+pnpm run build
+```
+
+The production build will be in the `dist` directory.
+
+### Preview Production Build
+
+Preview the production build locally:
+
+```bash
+pnpm run preview
+```
+
+## Running E2E Tests
+
+The project uses Playwright for end-to-end testing. All tests interact with the **real API** (no mocks).
+
+### Prerequisites for E2E Tests
+
+1. **Backend API must be running** - Tests require a live backend server
+2. **API URL configured** - Ensure `VITE_API_URL` in `.env` matches your backend URL
+3. **Database setup** - Your backend database should be accessible
+
+### Run All E2E Tests
+
+```bash
+pnpm run test:e2e
+```
+
+### Run Specific Test Files
+
+```bash
+# Run customer list tests
+pnpm run test:e2e tests/customer-list.spec.ts
+
+# Run add customer tests
+pnpm run test:e2e tests/add-customer.spec.ts
+
+# Run update customer tests
+pnpm run test:e2e tests/update-customer.spec.ts
+
+# Run delete customer tests
+pnpm run test:e2e tests/delete-customer.spec.ts
+```
+
+### View Test Report
+
+After running tests, a HTML report is automatically generated. To view it:
+
+```bash
+npx playwright show-report
 ```
